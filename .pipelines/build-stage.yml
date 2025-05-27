@@ -67,11 +67,11 @@ stages:
           ob_outputDirectory: '$(Build.SourcesDirectory)\out'
         
         ${{ if eq(parameters.pool, '') }}:
-        pool:
+          pool:
             type: windows
 
         ${{ else }}:
-            pool: wsl-build
+          pool: wsl-build
 
         steps:
           - script: python tools/devops/validate-localization.py localization/strings en-US
