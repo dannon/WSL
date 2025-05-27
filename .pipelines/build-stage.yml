@@ -63,10 +63,10 @@ stages:
         displayName: "Formatting & localization checks"
         timeoutInMinutes: 30
         
-        ${{ if eq(parameters.pool, '') }}:
         variables:
           ob_outputDirectory: '$(Build.SourcesDirectory)\out'
-
+        
+        ${{ if eq(parameters.pool, '') }}:
         pool:
             type: windows
 
@@ -101,9 +101,6 @@ stages:
         timeoutInMinutes: 120
 
         ${{ if eq(parameters.pool, '') }}:
-        variables:
-          ob_outputDirectory: '$(Build.SourcesDirectory)\out'
-
         pool:
             type: windows
 
