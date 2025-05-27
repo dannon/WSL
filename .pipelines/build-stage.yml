@@ -101,11 +101,11 @@ stages:
         timeoutInMinutes: 120
 
         ${{ if eq(parameters.pool, '') }}:
-        pool:
+          pool:
             type: windows
 
         ${{ else }}:
-        pool: wsl-build
+          pool: wsl-build
 
         variables:
           NUGET_PLUGIN_HANDSHAKE_TIMEOUT_IN_SECONDS: 60
