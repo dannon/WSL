@@ -35,6 +35,10 @@ parameters:
     default:
       - x64
       - arm64
+      
+  - name: pool
+    type: string
+    default: ''
 
   - name: esrp
     type: object
@@ -58,9 +62,16 @@ stages:
       
         displayName: "Formatting & localization checks"
         timeoutInMinutes: 30
-        pool: wsl-build
+        
+        ${{ if eq(parameters.pool, '') }}:
         variables:
           ob_outputDirectory: '$(Build.SourcesDirectory)\out'
+
+        pool:
+            type: windows
+
+        ${{ else }}:
+            pool: wsl-build
 
         steps:
           - script: python tools/devops/validate-localization.py localization/strings en-US
@@ -88,6 +99,15 @@ stages:
       - job: build
         displayName: "Build WSL package"
         timeoutInMinutes: 120
+
+        ${{ if eq(parameters.pool, '') }}:
+        variables:
+          ob_outputDirectory: '$(Build.SourcesDirectory)\out'
+
+        pool:
+            type: windows
+
+        ${{ else }}:
         pool: wsl-build
 
         variables:
